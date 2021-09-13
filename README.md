@@ -77,7 +77,7 @@ def post_generation():
 # Check out the docs for more information..
 ```
 
-Notice the file named `readme_file_name` in the directory structure, this file gets its value inside `proto.py`. It has
+Notice the file named `{{readme_file_name}}` in the directory structure, this file gets its value inside `proto.py`. It has
 2 possible values `README.md.tmpl` and `README.rst.tmpl`, since the file extension is `tmpl` its content will be
 rendered using `jinja`.
 
@@ -159,7 +159,7 @@ Usage:
   protopy generate <template> <output_path> [<template_args>...]
 
 Arguments:
-  template         the template to use (supports path, git, zip, url to zip, global template ref (with #))
+  template         the template to use (supports path, git, zip and url to zip)
   output_path      where to put the generated content
   template_args    template arguments, can be positional and key=value
 
