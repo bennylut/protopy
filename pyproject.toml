@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "protopy"
+version = "0.1.0"
+description = ""
+authors = ["bennylut"]
+readme = "README.md"
+
+[tool.relaxed-poetry.sub-projects]
+protopy_lib = "protopy_lib"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+protopy_lib = { sibling = true }
+tomlkit = "^0.7.2"
+pygit2 = "^1.6.1"
+requests = "^2.26.0"
+
+# backports
+typing-extensions = { version = "^3.10.0.2", python = "<3.8" }
+dataclasses = { version = ">=0.8", python = "~3.6" }
+importlib-resources = { version = "^5", python = "<3.8" }
+
+
+[tool.poetry.scripts]
+protopy = "protopy.cli:main"
+
+[build-system]
+requires = ["relaxed-poetry-core>=0.0.8"]
+build-backend = "poetry.core.masonry.api"
