@@ -159,7 +159,7 @@ Usage:
   protopy generate <template> <output_path> [<template_args>...]
 
 Arguments:
-  template         the template to use (supports path, git, zip, url to zip, global template ref (with #))
+  template         the template to use (supports path, git, zip and url to zip)
   output_path      where to put the generated content
   template_args    template arguments, can be positional and key=value
 
