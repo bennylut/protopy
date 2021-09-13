@@ -4,7 +4,7 @@ from pathlib import Path
 import pygit2
 from tempfile import TemporaryDirectory
 
-from protopy.sources import Source
+from protopy.cli.sources import Source
 
 
 class GitSource(Source):

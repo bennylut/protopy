@@ -17,10 +17,10 @@ class Source(Protocol):
 
     @staticmethod
     def from_descriptor(descriptor: str) -> "Source":
-        from protopy.sources.git_source import GitSource
-        from protopy.sources.url_source import UrlSource
-        from protopy.sources.zip_source import ZipSource
-        from protopy.sources.file_system_source import FileSystemSource
+        from protopy.cli.sources.git_source import GitSource
+        from protopy.cli.sources.url_source import UrlSource
+        from protopy.cli.sources.zip_source import ZipSource
+        from protopy.cli.sources.file_system_source import FileSystemSource
 
         if descriptor.startswith("git+"):
             return GitSource(descriptor[5:])

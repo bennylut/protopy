@@ -9,4 +9,11 @@
     <orderEntry type="jdk" jdkName="protopy-lib-p3.6" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/protopy" />
+      </list>
+    </option>
+  </component>
 </module>

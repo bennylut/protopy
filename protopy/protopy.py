@@ -2,10 +2,10 @@ import zipfile
 from pathlib import Path
 from typing import Dict, List
 
-import protopy_lib.engine
+import protopy.engine
 
-from protopy.sources import Source
-from protopy.utils.resources import resource
+from protopy.cli.sources import Source
+from protopy.cli.utils.resources import resource
 
 _NEW_TEMPLATE_RESOURCE = "templates/new_template.zip"
 
@@ -13,7 +13,7 @@ _NEW_TEMPLATE_RESOURCE = "templates/new_template.zip"
 class Protopy:
 
     def __init__(self):
-        self._engine = protopy_lib.engine.ProtopyEngine()
+        self._engine = protopy.engine.ProtopyEngine()
 
     def render(self, descriptor: str, out_dir: Path, args: List[str], kwargs: Dict[str, str]):
         with Source.from_descriptor(descriptor).use() as template_path:

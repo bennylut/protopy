@@ -3,7 +3,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
-from protopy.sources import Source
+from protopy.cli.sources import Source
 
 
 class ZipSource(Source):

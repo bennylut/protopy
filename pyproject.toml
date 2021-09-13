@@ -1,9 +1,15 @@
 [tool.poetry]
-name = "protopy"
-version = "0.1.0"
+name = "protopy-cli"
+version = "$version"
 description = ""
 authors = ["bennylut"]
 readme = "README.md"
+
+packages = [{include = "protopy"}]
+
+[tool.relaxed-poetry.properties]
+version="0.1.1"
+
 
 [tool.relaxed-poetry.sub-projects]
 protopy_lib = "protopy_lib"
@@ -22,7 +28,7 @@ importlib-resources = { version = "^5", python = "<3.8" }
 
 
 [tool.poetry.scripts]
-protopy = "protopy.cli:main"
+protopy = "protopy.application:main"
 
 [build-system]
 requires = ["relaxed-poetry-core>=0.0.8"]

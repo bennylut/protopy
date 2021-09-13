@@ -1,7 +1,7 @@
 from contextlib import contextmanager
 from pathlib import Path
 
-from protopy.sources import Source
+from protopy.cli.sources import Source
 
 
 class FileSystemSource(Source):

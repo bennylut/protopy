@@ -4,7 +4,7 @@ from contextlib import contextmanager
 from tempfile import TemporaryFile
 from typing import Callable
 
-from protopy.sources import Source
+from protopy.cli.sources import Source
 import requests
 
 

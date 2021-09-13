@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "protopy-lib"
-version = "0.1.0"
+version = "$version"
 description = ""
 authors = ["bennylut"]
-packages = [{include = "protopy_lib"}]
+packages = [{include = "protopy"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.6"
