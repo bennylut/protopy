@@ -77,7 +77,7 @@ def post_generation():
 # Check out the docs for more information..
 ```
 
-Notice the file named `readme_file_name` in the directory structure, this file gets its value inside `proto.py`. It has
+Notice the file named `{{readme_file_name}}` in the directory structure, this file gets its value inside `proto.py`. It has
 2 possible values `README.md.tmpl` and `README.rst.tmpl`, since the file extension is `tmpl` its content will be
 rendered using `jinja`.
 
