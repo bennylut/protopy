@@ -280,7 +280,7 @@ out-dir/
             └── file.txt
 ```
 
-## The Protopy library (`protopy_lib`)
+## The Protopy library (`protopy-lib`)
 
 The Protopy library (protopy_lib) includes the Protopy engine itself without the commandline and support for multiple
 template sources. It has minimal set of dependencies and is intended for embedding inside other applications.
