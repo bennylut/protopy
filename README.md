@@ -159,9 +159,12 @@ Usage:
   protopy generate <template> <output_path> [<template_args>...]
 
 Arguments:
-  template         the template to use (supports path, git, zip and url to zip)
-  output_path      where to put the generated content
-  template_args    template arguments, can be positional and key=value
+  template              the template to use (supports path, git, zip and url to zip)
+  output_path           where to put the generated content
+  template_args         template arguments, can be positional and key=value
+
+Options:
+  -o, --overwrite       allows the generated content to overwrite existing files
 
 ```
 
@@ -171,6 +174,22 @@ The `generate` command support generating templates from different sources:
 - Local zip file: `protopy generate /path/to/zip/file.zip ...`
 - Remote zip file: `protopy generate https://url-to-zip-file.zip ...`
 - Git repository: `protopy generate git+https://github.com/...`
+
+### Manual _(man)_
+
+```
+Description:
+  print information about a template
+
+Usage:
+  protopy man [options] [--] <template>
+
+Arguments:
+  template              the template to examine (supports path, git, zip, url to zip)
+
+
+```
+
 
 ## The `proto.py` file
 
@@ -182,8 +201,10 @@ During its execution, `proto.py` has several special methods that are supplied t
 
 ```python
 
-def ask(named_arg: str, *, prompt: str = None, default: Any = "", choices: Optional[List[str]] = None,
-        autocomplete: Optional[List[str]] = None, secret: bool = False, positional_arg: int = -1):
+def ask(self, named_arg: str, *, prompt: str = None, default: Any = "", choices: Optional[List[str]] = None,
+        autocomplete: Optional[List[str]] = None, secret: bool = False, positional_arg: int = -1,
+        doc: str = ""):
+
     """
     ask the user for information (either retrieving it from the command line or from the user supplied arguments)
     :param named_arg: the name of the argument that may contain the value for this function to return
@@ -192,13 +213,17 @@ def ask(named_arg: str, *, prompt: str = None, default: Any = "", choices: Optio
     :param choices: (optional - defaults to None) list of choices to restrict the user input to
     :param autocomplete: (optional - defaults to None) list of autocomplete suggestions to help the user with
     :param secret: (optional - defaults to False) set to True to hide the user input
-    :param positional_arg:  (optional - defaults to -1) the number of the positional argument that may contain the
+    :param positional_arg:  (optional - defaults to -1) the index of the positional argument that may contain the
                             value for this function to return
+    :param doc: documentation to show in the commandline (must be a string literal)
+
     :return: the requested user input
     """
 
 
-def confirm(named_arg: str, *, prompt: str, default: bool = True, positional_arg: int = -1) -> bool:
+def confirm(
+        self, named_arg: str, *, prompt: str, doc: str = "", default: bool = True, positional_arg: int = -1) -> bool:
+
     """
     ask the user for yes/no confirmation (either retrieving it from the command line or from the user supplied arguments)
     :param named_arg: the name of the argument that may contain the value for this function to return (supports the values y,yes,n,no)
@@ -206,7 +231,20 @@ def confirm(named_arg: str, *, prompt: str, default: bool = True, positional_arg
     :param default: (optional - defaults to True = 'yes') the default value to suggest the user
     :param positional_arg: (optional - defaults to -1) the index of the positional argument that may contain the
                             value for this function to return
+    :param doc: documentation to show in the commandline (must be a string literal)
     :return: True if the user confirmed or False otherwise
+    """
+
+
+def arg(self, named_arg: str, *, doc: str = "", default: str = "", positional_arg=-1):
+    """
+    fetch a value from the commandline arguments, without asking the user for it if not provided
+    :param named_arg: the name of the argument that may contain the value for this function to return (supports the values y,yes,n,no)
+    :param doc: documentation to show in the commandline (must be a string literal)
+    :param default: (optional - defaults to None) the default value to suggest the user
+    :param positional_arg:  (optional - defaults to -1) the index of the positional argument that may contain the
+                            value for this function to return
+    :return: the requested user value
     """
 
 
@@ -243,6 +281,12 @@ say('<bg=yellow;options=bold>hi there</>')
 
 Sometimes, your template may contain files that you want to exclude from the rendering process. You can use
 a `.protopyignore` file for that (just add glob patterns to it similar to `.gitignore` file)
+
+### Copying content without templating 
+
+Sometimes, your template may contain directories that you want to copy as is (without passing through the template engine).
+To do so, all you need to do is to include a `.protopypreserve` file inside the directory that you want to preserve as is.
+
 
 ### Dynamic file positioning
 
@@ -290,18 +334,30 @@ it exposes the following class:
 ```python
 
 class ProtopyEngine:
+    def render_doc(self, template_dir: Union[Path, str], template_descriptor: Optional[str] = None,
+                   command_prefix: str = "protopy") -> str:
+        """
+        :param the directory holding the template
+        :param template_descriptor: the descriptor that used to resolve the template directory, if not provided,
+                                    the template directory will be considered as the descriptor
+        :param command_prefix: the prefix of the commandline that should be used to generate this template
+        :return: a generated documentation for this template
+        """
 
     def render(self, template_dir: Union[Path, str], target_dir: Union[Path, str],
-               args: List[str], kwargs: Dict[str, str], excluded_files: Optional[List[Path]] = None):
+               args: List[str], kwargs: Dict[str, str], extra_conte~~~~xt: Dict[str, Any], *,
+               excluded_files: Optional[List[Path]] = None, allow_overwrite: bool = False):
         """
         renders the given template into the target directory
-        
-        :param template_dir: the directory holding the template 
+
+        :param template_dir: the directory holding the template
         :param target_dir: the directory to output the generated content into
         :param args: positional arguments for the template
         :param kwargs: named arguments for the template
-        :param excluded_files:  list of path objects that represents files in the template directory that should be 
+        :param extra_context: extra variables that will be available inside proto.py
+        :param excluded_files:  list of path objects that represents files in the template directory that should be
                                 excluded from the generation process
+        :param allow_overwrite: if True, files that are already exists will be overridden by the template
         """
 
 ```

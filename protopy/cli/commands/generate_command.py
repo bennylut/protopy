@@ -11,8 +11,9 @@ class GenerateCommand(Command):
     generate directory tree based on a given template
 
     generate
-        {template : the template to use (supports path, git, zip, url to zip, global template ref (with #))}
+        {template : the template to use (supports path, git, zip, url to zip)}
         {output_path : where to put the generated content }
+        {--o|overwrite : allows the generated content to overwrite existing files}
         {template_args?* : template arguments, can be positional and key=value}
     """
 
@@ -37,5 +38,5 @@ class GenerateCommand(Command):
             else:
                 args.append(value)
 
-        Protopy.instance().render(template_descriptor, out_path, args, kwargs)
+        Protopy.instance().render(template_descriptor, out_path, args, kwargs, allow_overwrite=self.option("overwrite"))
         return 0
