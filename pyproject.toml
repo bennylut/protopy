@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "protopy-cli"
 version = "$version"
-description = ""
+description = "CLI for rendering directory trees."
 authors = ["bennylut"]
 readme = "README.md"
 

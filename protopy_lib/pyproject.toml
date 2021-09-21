@@ -1,9 +1,10 @@
 [tool.poetry]
 name = "protopy-lib"
 version = "$version"
-description = ""
+description = "Library for rendering directory trees."
 authors = ["bennylut"]
 packages = [{include = "protopy"}]
+readme = "README.md"
 
 
 [tool.poetry.dependencies]
