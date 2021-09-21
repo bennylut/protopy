@@ -7,6 +7,19 @@ It is composed of two projects:
 - A command-line utility that creates scaffolding for files and projects from templates.
 - A library that allows for embedding into other applications with minimal dependencies
 
+## How to install
+
+- To install the CLI use:
+```console
+pip install protopy-cli
+```
+
+- To install the library use:
+```console
+pip install protopy-lib
+```
+
+
 ## How does it work
 
 A protopy template is a directory which contains at least a `proto.py` file. Inside this directory, we create the
